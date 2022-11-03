@@ -1,4 +1,7 @@
 <?php
+namespace DB;
+use mysqli;
+
 class DB {
 	private $db_host = "localhost";
 	private $db_password = "";

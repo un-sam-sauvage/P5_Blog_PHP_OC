@@ -1,5 +1,4 @@
 <?php
-require_once("../models/cla_dbConnection.php");
 require_once("../models/login.model.php");
 session_start();
 
