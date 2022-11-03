@@ -1,9 +1,9 @@
 <?php
-require_once("../models/login.model.php");
 session_start();
+use User\UserModel;
 
 if (isset($_POST["submit"])) {
-	$login = new Login();
+	$login = new UserModel();
 	$logged = $login->checkIfLogin($_POST["username"], $_POST["password"]);
 	if($logged) {
 		$msgHTML = '<p class="msg success">Sucessfully logged in</p>';
