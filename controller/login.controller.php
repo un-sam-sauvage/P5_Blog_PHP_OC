@@ -1,8 +1,7 @@
 <?php
 
-// use Models\User\UserModel;
 
-use UserModel\UserModel;
+use Models\UserModel;
 
 session_start();
 require_once("../vendor/autoload.php");
