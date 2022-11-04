@@ -1,6 +1,9 @@
 <?php
-namespace User;
+namespace UserModel;
+
 use DB\DB;
+
+require_once("../vendor/autoload.php");
 
 class UserModel {
 	private int $id;
@@ -15,6 +18,7 @@ class UserModel {
 	* @return bool true if password match and false otherwise
 	*/
 	public function checkIfLogin ($username, $password) {
+		// $db = new DB();
 		$db = new DB();
 		$hash = $db->select('SELECT password, id FROM users WHERE username = "'.$username.'" OR email = "'. $username .'"');
 		if (empty($hash)) {

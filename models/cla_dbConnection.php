@@ -11,7 +11,7 @@ class DB {
 
 	public function __construct()
 	{
-		$this->db = new mysqli($this->db_host,$this->db_user,$this->db_password, $this->db_db);
+		// $this->db = new mysqli($this->db_host,$this->db_user,$this->db_password, $this->db_db);
 		if ($this->db->connect_errno) {
 			return "failed to connect to db";
 		}

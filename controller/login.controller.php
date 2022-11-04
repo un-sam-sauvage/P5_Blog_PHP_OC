@@ -1,6 +1,12 @@
 <?php
+
+// use Models\User\UserModel;
+
+use UserModel\UserModel;
+
 session_start();
-use User\UserModel;
+require_once("../vendor/autoload.php");
+
 
 if (isset($_POST["submit"])) {
 	$login = new UserModel();
