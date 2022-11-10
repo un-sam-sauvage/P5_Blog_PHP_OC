@@ -30,6 +30,6 @@
 		<input name="password" type="password">
 		<button type="submit" name="submit">Login</button>
 	</form>
-	<a href="register.php">Don't have an account yet ? click here to register</a>
+	<a href="register.controller.php">Don't have an account yet ? click here to register</a>
 </body>
 </html>

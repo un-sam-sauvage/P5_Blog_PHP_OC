@@ -1,5 +1,6 @@
 <?php
-namespace DB;
+namespace Models;
+require_once("../vendor/autoload.php");
 use mysqli;
 
 class DB {
