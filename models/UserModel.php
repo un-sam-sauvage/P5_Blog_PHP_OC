@@ -2,6 +2,8 @@
 namespace Models;
 
 require_once("../vendor/autoload.php");
+
+use Exception;
 use Models\DB;
 
 
@@ -84,5 +86,13 @@ class UserModel {
 	 */
 	public function registerNewUser ($username, $email, $password) {
 		$this->db->query("INSERT INTO users (username, email, password) VALUES ('".$username."','".$email."','".password_hash($password,PASSWORD_BCRYPT)."')");
+	}
+
+	public function getProfileInfo ($username) {
+		return $this->db->select("SELECT github, bio as description FROM users WHERE username = '". $username."'");
+	}
+
+	public function setProfileInfo ($username, $github, $description, $newUsername) {
+		$this->db->query("UPDATE users SET github = '".$github."', bio = '".$description."', username ='".$newUsername."' WHERE username = '".$username."'");
 	}
 }
