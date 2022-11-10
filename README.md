@@ -8,4 +8,8 @@ Welcome on my blog made for the project number 5 within my course to become php 
 
 ### Database
 
+Créer le fichier ".env.ini" en copiant ".env-example.ini".
+
+Configurez les infos de connexion à la base de données en remplissant le fichier ".env.ini"
+
 ### Start project on local
