@@ -6,6 +6,7 @@ use mysqli;
 
 class DB
 {
+	// Ne jamais mettre des infos de connexion en dur
 	private $db_host = "localhost";
 	private $db_password = "";
 	private $db_user = "root";
@@ -14,7 +15,12 @@ class DB
 
 	public function __construct()
 	{
-		$this->db = new mysqli($this->db_host, $this->db_user, $this->db_password, $this->db_db);
+
+		// On récupère les informations de connexion depuis le fichier .env.ini (à la racine du projet)
+		$config = parse_ini_file(__DIR__ . '/../../.env.ini');
+
+		$this->db = new mysqli($config['DB_HOST'], $config['DB_USERNAME'], $config['DB_PASSWORD'], $config['DB_NAME']);
+
 		if ($this->db->connect_errno) {
 			return "failed to connect to db";
 		}

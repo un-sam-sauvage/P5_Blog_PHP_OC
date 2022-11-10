@@ -4,9 +4,9 @@ namespace App\Controller;
 
 use App\Models\UserModel;
 
-class LoginController extends BaseController
+class AccountController extends BaseController
 {
-    public function index()
+    public function login()
     {
         if (isset($_POST["submit"])) {
             $login = new UserModel();
@@ -19,5 +19,6 @@ class LoginController extends BaseController
                 $msgHTML = '<p class="msg alert">Wrong username or password</p>';
             }
         }
+        $this->render('account/login.view.php', ['msgHTML' => $msgHTML, 'title' => 'Page de Login']);
     }
 }

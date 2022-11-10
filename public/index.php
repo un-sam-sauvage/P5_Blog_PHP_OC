@@ -14,15 +14,28 @@ $router->map('GET', '/', [
 
 // Page de login
 $router->map('GET', '/login', [
-    'controller' => 'LoginController',
-    'method' => 'index'
-], 'login-index');
+    'controller' => 'AccountController',
+    'method' => 'login'
+], 'account-login');
 
 
-$router->map('GET', '/profile/[i:id]', [
+// Page de register
+$router->map('GET', '/register', [
+    'controller' => 'AccountController',
+    'method' => 'register'
+], 'account-register');
+
+// Page de Profile
+$router->map('GET', '/profile', [
     'controller' => 'ProfileController',
+    'method' => 'index'
+], 'profile-index');
+
+
+$router->map('GET', '/post/[i:id]', [
+    'controller' => 'PostController',
     'method' => 'show'
-], 'profile-show');
+], 'post-show');
 
 $match = $router->match();
 
@@ -32,7 +45,7 @@ if ($match) {
     // Si la route existe, on l'affiche
     $controllerName = "\\App\Controller\\" . $match['target']['controller'];
     $methodName = $match['target']['method'];
-    $params = $match['target']['params'];
+    $params = $match['params'];
 
     // on instancie le controller
     $controllerObject = new $controllerName();

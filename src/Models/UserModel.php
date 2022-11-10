@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Exception;
-use Models\DB;
 
 
 class UserModel
