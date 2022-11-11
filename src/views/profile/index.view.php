@@ -14,7 +14,7 @@
 <script type="module">
 	import {
 		fct_fetchData
-	} from "../views/js/mod_ajax.js";
+	} from "./js/mod_ajax.js";
 	let btnEdit = document.getElementById("btn-edit");
 	btnEdit.addEventListener("click", () => {
 		let divEdit = document.getElementById("edit-profile")

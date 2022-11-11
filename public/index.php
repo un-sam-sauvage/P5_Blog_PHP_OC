@@ -8,49 +8,52 @@ $router = new AltoRouter();
 
 // Page d'accueil
 $router->map('GET', '/', [
-    'controller' => 'HomeController',
-    'method' => 'index'
+	'controller' => 'HomeController',
+	'method' => 'index'
 ], 'home-index');
 
 // Page de login
 $router->map('GET', '/login', [
-    'controller' => 'AccountController',
-    'method' => 'login'
+	'controller' => 'AccountController',
+	'method' => 'login'
 ], 'account-login');
 
 // Page de Profile
 $router->map('GET', '/profile', [
-    'controller' => 'ProfileController',
-    'method' => 'index'
+	'controller' => 'ProfileController',
+	'method' => 'index'
 ], 'profile-index');
 
 
 $router->map('GET', '/post/[i:id]', [
-    'controller' => 'PostController',
-    'method' => 'show'
+	'controller' => 'PostController',
+	'method' => 'show'
 ], 'post-show');
 
+$router->map('POST', '/login', [
+	'controller' => "AccountController",
+	'method' => "login"
+], "account-login-post");
 $match = $router->match();
-
 
 // Dispatcher
 if ($match) {
-    // Si la route existe, on l'affiche
-    $controllerName = "\\App\Controller\\" . $match['target']['controller'];
-    $methodName = $match['target']['method'];
-    $params = $match['params'];
+	// Si la route existe, on l'affiche
+	$controllerName = "\\App\Controller\\" . $match['target']['controller'];
+	$methodName = $match['target']['method'];
+	$params = $match['params'];
 
-    // on instancie le controller
-    $controllerObject = new $controllerName();
+	// on instancie le controller
+	$controllerObject = new $controllerName();
 
-    // on appelle la méthode du controleur
-    if (is_array($params)) {
-        $controllerObject->$methodName(...array_values($params));
-    } else {
-        $controllerObject->$methodName();
-    }
+	// on appelle la méthode du controleur
+	if (is_array($params)) {
+		$controllerObject->$methodName(...array_values($params));
+	} else {
+		$controllerObject->$methodName();
+	}
 } else {
-    // On affiche une page 404
-    $baseCtrlObject = new \App\Controller\BaseController();
-    $baseCtrlObject->error404();
+	// On affiche une page 404
+	$baseCtrlObject = new \App\Controller\BaseController();
+	$baseCtrlObject->error404();
 }

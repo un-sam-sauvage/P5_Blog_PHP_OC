@@ -1,7 +1,7 @@
 <?php
 
 require_once("../../vendor/autoload.php");
-use Models\UserModel;
+use App\Models\UserModel;
 session_start();
 
 if(isset($_POST["username"]) && isset($_POST["github"]) && isset($_POST["description"]) && isset($_POST["newUsername"])) {
