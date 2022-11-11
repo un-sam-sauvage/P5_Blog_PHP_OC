@@ -6,9 +6,17 @@ class BaseController
 {
     public function render($viewName, $params = [])
     {
+        // On transforme les clés du tableaux params en variables
+        // ex : 
+        // ['title' => 'Mon titre'] devient $title = 'Mon titre'
+        extract($params);
+
+        // On execute le code récupérer le rendu html que l'on stocke dans la variable $bodyContent
         ob_start();
         require __DIR__ . "/../views/" . $viewName;
         $bodyContent = ob_get_clean();
+
+        // On utilise la variable $bodyContent dans le layout de base
         require __DIR__ . "/../views/base.view.php";
     }
 
