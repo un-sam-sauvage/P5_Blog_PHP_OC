@@ -14,6 +14,7 @@ class BaseController
 
     public function error404($viewName = 'base/error404.view.php')
     {
+        header("HTTP/1.1 404 Not Found");
         $this->render($viewName);
     }
 }

@@ -18,13 +18,6 @@ $router->map('GET', '/login', [
     'method' => 'login'
 ], 'account-login');
 
-
-// Page de register
-$router->map('GET', '/register', [
-    'controller' => 'AccountController',
-    'method' => 'register'
-], 'account-register');
-
 // Page de Profile
 $router->map('GET', '/profile', [
     'controller' => 'ProfileController',
