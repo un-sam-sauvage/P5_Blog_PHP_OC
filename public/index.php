@@ -58,4 +58,6 @@ if ($match) {
     }
 } else {
     // On affiche une page 404
+    $baseCtrlObject = new \App\Controller\BaseController();
+    $baseCtrlObject->error404();
 }
