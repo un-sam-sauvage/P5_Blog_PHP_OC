@@ -12,6 +12,12 @@ class BaseController
         require __DIR__ . "/../views/base.view.php";
     }
 
+    public function error($viewName = 'base/error.view.php')
+    {
+        header("HTTP/1.1 500 Internal Server Error");
+        $this->render($viewName);
+    }
+
     public function error404($viewName = 'base/error404.view.php')
     {
         header("HTTP/1.1 404 Not Found");
