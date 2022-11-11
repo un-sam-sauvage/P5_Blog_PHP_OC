@@ -1,5 +1,5 @@
 <?php
-$title = $title ?? 'Homepage'
+$title = $title ?? 'Homepage';
 ?>
 <!DOCTYPE html>
 <html lang="en">
