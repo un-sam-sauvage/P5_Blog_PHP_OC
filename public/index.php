@@ -18,22 +18,28 @@ $router->map('GET', '/login', [
 	'method' => 'login'
 ], 'account-login');
 
+$router->map('POST', '/login', [
+	'controller' => "AccountController",
+	'method' => "login"
+], "account-login-post");
+
 // Page de Profile
 $router->map('GET', '/profile', [
 	'controller' => 'ProfileController',
 	'method' => 'index'
 ], 'profile-index');
 
+$router->map('POST', '/profile', [
+	'controller' => "ProfileController",
+	'method' => "updateProfile"
+], "profile-update");
 
 $router->map('GET', '/post/[i:id]', [
 	'controller' => 'PostController',
 	'method' => 'show'
 ], 'post-show');
 
-$router->map('POST', '/login', [
-	'controller' => "AccountController",
-	'method' => "login"
-], "account-login-post");
+
 $match = $router->match();
 
 // Dispatcher

@@ -1,7 +1,12 @@
-<h1>Welcome to your profile <span id="username"><?= strtoupper($_SESSION["username"]) ?></span> !</h1>
-<p id="description"><?= $userInfos["description"] ?> </p>
-<a href="github.com/<?= $userInfos["github"] ?>" id="github">Github Page</a>
+
+<div id="user-infos">
+	<h1>Welcome to your profile <span id="username"><?= strtoupper($_SESSION["username"]) ?></span> !</h1>
+	<p id="description"><?= $userInfos["description"] ?> </p>
+	<a href="github.com/<?= $userInfos["github"] ?>" id="github">Github Page</a>
+</div>
+
 <button id="btn-edit">Edit your profile</button>
+
 <div id="edit-profile" class="hidden">
 	<label for="">Change your username (must be unique)</label>
 	<input type="text" id="username-edit" value="<?= $_SESSION["username"] ?>">
@@ -11,6 +16,7 @@
 	<textarea id="description-edit" cols="30" rows="10"><?= $userInfos["description"] ?></textarea>
 	<button id="submit-change">Validate new infos</button>
 </div>
+
 <script type="module">
 	import {
 		fct_fetchData
@@ -27,11 +33,16 @@
 	})
 	document.getElementById("submit-change").addEventListener("click", btn => {
 		btn.preventDefault();
-		fct_fetchData("updateProfile.ajax.php", {
+		fct_fetchData("profile", {
 			username: "<?= $_SESSION["username"] ?>",
 			github: document.getElementById("github-edit").value,
-			description: document.getElementById("description-edit").textContent,
+			description: document.getElementById("description-edit").value,
 			newUsername: document.getElementById("username-edit").value
-		}).then(console.log)
+		}).then(data => {
+			console.log(data);
+			document.getElementById("username").textContent = document.getElementById("username-edit").value.toUpperCase();
+			document.getElementById("description").textContent = document.getElementById("description-edit").value;
+			document.getElementById("github").href = "http://github.com/" + document.getElementById("github-edit").value;
+		})
 	})
 </script>
