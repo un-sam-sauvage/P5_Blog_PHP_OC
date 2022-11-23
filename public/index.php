@@ -36,8 +36,13 @@ $router->map('POST', '/profile', [
 
 $router->map('GET', '/post/[i:id]', [
 	'controller' => 'PostController',
-	'method' => 'show'
+	'method' => 'showSinglePost'
 ], 'post-show');
+
+$router->map('GET', '/posts', [
+	'controller' => 'PostController',
+	'method' => 'showAllPost'
+], 'all-post-show');
 
 
 $match = $router->match();
