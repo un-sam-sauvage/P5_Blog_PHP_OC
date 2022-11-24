@@ -1,8 +1,12 @@
 <nav>
 	<a href="/">Back To Home</a>
-	<a href="/login">Login</a>
-	<?= isset($_SESSION["username"]) ? "" : '<a href="/register">Register</a>' ?>
-	<?= isset($_SESSION["username"]) ? '<a href="/profile">Go to your profile</a>' : "" ?>
-	<?= isset($_SESSION["username"]) ? '<a href="/logout">Disconnect</a>' : "" ?>
-	<p><?= isset($_SESSION["username"]) ? $_SESSION["username"] : "" ?></p>
+	<a href="/posts">All post</a>
+	<?php if (isset($_SESSION["username"])) { ?>
+		<a href="/profile">Go to your profile</a>
+		<a href="/logout">Disconnect</a>
+		<p><?= $_SESSION["username"] ?></p>
+	<?php } else { ?>
+		<a href="/login">Login</a>
+		<a href="/register">Register</a>
+	<?php } ?>
 </nav>
