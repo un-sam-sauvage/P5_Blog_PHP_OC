@@ -34,6 +34,8 @@ $router->map('POST', '/profile', [
 	'method' => "updateProfile"
 ], "profile-update");
 
+
+//TODO: 
 $router->map('GET', '/post/[i:id]', [
 	'controller' => 'PostController',
 	'method' => 'showSinglePost'
@@ -44,6 +46,15 @@ $router->map('GET', '/posts', [
 	'method' => 'showAllPost'
 ], 'all-post-show');
 
+$router->map('GET', '/create-post', [
+	'controller' => 'PostController',
+	'method'=> 'renderCreatePost'
+], 'show-create-post');
+
+$router->map('POST', '/create-post', [
+	'controller' => 'PostController',
+	'method' => 'createPost'
+], 'create-post');
 
 $match = $router->match();
 

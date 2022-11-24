@@ -10,7 +10,7 @@ class PostModel {
 	}
 
 	public function getAllPost () {
-		return $this->db->select("SELECT * FROM posts");
+		return $this->db->query("SELECT posts.id, posts.content, posts.title, users.username FROM posts JOIN users ON users.id=posts.author");
 	}
 
 	public function getPost (int $id) {

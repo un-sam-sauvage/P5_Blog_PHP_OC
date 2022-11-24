@@ -8,7 +8,7 @@ use Exception;
 class UserModel
 {
 	private int $id;
-	private $db;
+	private DB $db;
 
 	public function __construct()
 	{
@@ -31,8 +31,8 @@ class UserModel
 		if (empty($hash)) {
 			return false;
 		} else {
+			$this->id = $hash["id"];
 			$hash = $hash["password"];
-			$this->id = $hash[1];
 			return password_verify($password, $hash);
 		}
 	}
@@ -45,8 +45,8 @@ class UserModel
 	 */
 	public function getUserId()
 	{
-		if (isset($id))
-			return $id;
+		if (isset($this->id))
+			return $this->id;
 		return false;
 	}
 
