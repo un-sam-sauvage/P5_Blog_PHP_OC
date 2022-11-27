@@ -34,9 +34,7 @@ $router->map('POST', '/profile', [
 	'method' => "updateProfile"
 ], "profile-update");
 
-
-//TODO: 
-$router->map('GET', '/post/[i:id]', [
+$router->map('GET', '/posts/[i:id]', [
 	'controller' => 'PostController',
 	'method' => 'showSinglePost'
 ], 'post-show');
@@ -55,6 +53,11 @@ $router->map('POST', '/create-post', [
 	'controller' => 'PostController',
 	'method' => 'createPost'
 ], 'create-post');
+
+$router->map("POST", "/ajax-post",[
+	"controller" => "PostController",
+	"method" => "ajaxPost"
+], "ajax-post");
 
 $match = $router->match();
 

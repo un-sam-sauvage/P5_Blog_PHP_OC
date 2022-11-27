@@ -10,13 +10,27 @@ class PostModel {
 	}
 
 	public function getAllPost () {
-		return $this->db->query("SELECT posts.id, posts.content, posts.title, users.username FROM posts JOIN users ON users.id=posts.author");
+		return $this->db->query(
+			"SELECT posts.id, posts.content, posts.title, users.username 
+			FROM posts 
+			JOIN users ON users.id=posts.author"
+		);
 	}
 
 	public function getPost (int $id) {
-		return $this->db->select("SELECT * FROM posts WHERE id = ".$id);
+		return $this->db->select(
+			"SELECT posts.id, posts.content, posts.title, users.username 
+			FROM posts 
+			JOIN users ON users.id=posts.author 
+			WHERE posts.id = ".$id
+		);
 	}
-
+	public function isAuthor (int $postId, int $userId) {
+		$isAuthor = $this->db->select("SELECT * FROM posts WHERE id = ".$postId ."AND author =". $userId);
+		if(!empty($isAuthor))
+			return true;
+		return false;
+	}
 	public function createPost (int $author,string $title, string $content) {
 		$this->db->query("INSERT INTO posts (title, content, author) VALUES ('".$title."', '".$content."', ".$author.")");
 	}
