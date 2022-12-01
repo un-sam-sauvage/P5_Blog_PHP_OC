@@ -1,1 +1,1 @@
-<h1>Cette ressource n'existe pas !</h1>
+<h1>404 - Cette ressource n'existe pas !</h1>

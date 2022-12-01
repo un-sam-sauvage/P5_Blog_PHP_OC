@@ -15,7 +15,7 @@
 	}
 
 	return fetch(
-		'../controller/ajax/' + url,
+		'/' + url,
 		request
 	).then(
 		(resp) => {

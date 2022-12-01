@@ -6,11 +6,6 @@ use mysqli;
 
 class DB
 {
-	// Ne jamais mettre des infos de connexion en dur
-	private $db_host = "localhost";
-	private $db_password = "";
-	private $db_user = "root";
-	private $db_db = "socialnetwork";
 	private $db;
 
 	public function __construct()
