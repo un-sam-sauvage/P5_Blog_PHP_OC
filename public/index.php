@@ -23,6 +23,16 @@ $router->map('POST', '/login', [
 	'method' => "login"
 ], "account-login-post");
 
+$router->map('GET', "/register", [
+	'controller' => 'AccountController',
+	'method' => 'register'
+], 'account-register');
+
+$router->map('POST', "/register", [
+	'controller' => 'AccountController',
+	'method' => 'register'
+], 'account-post-register');
+
 // Page de Profile
 $router->map('GET', '/profile', [
 	'controller' => 'ProfileController',
