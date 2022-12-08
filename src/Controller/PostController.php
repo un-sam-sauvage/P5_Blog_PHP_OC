@@ -8,6 +8,8 @@ class PostController extends BaseController {
 	public function showAllPost () {
 		$postModel = new PostModel();
 		$allPost = $postModel->getAllPost();
+		var_dump($allPost);
+		die;
 		$this->render("posts/allPost.view.php",array("posts" => $allPost, "title" => "allPost"));
 	}
 

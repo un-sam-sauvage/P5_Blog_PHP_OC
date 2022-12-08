@@ -63,12 +63,12 @@ class UserModel
 	public function CheckIfUsernameOrEmailExist($username, $email)
 	{
 		$response = array();
-		$result = $this->db->select("SELECT username FROM users WHERE username = '" . $username . "'");
+		$result = $this->db->select("SELECT username FROM users WHERE username = ?", array($username) , "s");
 
 		if (empty($result)) $response["username"] = true;
 		else $response["username"] = false;
 
-		$result = $this->db->select("SELECT email FROM users WHERE email = '" . $email . "'");
+		$result = $this->db->select("SELECT email FROM users WHERE email = ?", array($email), "s");
 
 		if (empty($result)) $response["email"] = true;
 		else $response["email"] = false;
@@ -88,16 +88,16 @@ class UserModel
 	 */
 	public function registerNewUser($username, $email, $password)
 	{
-		$this->db->query("INSERT INTO users (username, email, password) VALUES ('" . $username . "','" . $email . "','" . password_hash($password, PASSWORD_BCRYPT) . "')");
+		$this->db->query("INSERT INTO users (username, email, password) VALUES (?, ?, ?)", array($username, $email, password_hash($password, PASSWORD_BCRYPT)), "sss");
 	}
 
 	public function getProfileInfo($username)
 	{
-		return $this->db->select("SELECT github, bio as description FROM users WHERE username = '" . $username . "'");
+		return $this->db->select("SELECT github, bio as description FROM users WHERE username = ?", array($username), "s");
 	}
 
 	public function setProfileInfo($username, $github, $description, $newUsername)
 	{
-		$this->db->query("UPDATE users SET github = '" . $github . "', bio = '" . $description . "', username ='" . $newUsername . "' WHERE username = '" . $username . "'");
+		$this->db->query("UPDATE users set github = ?, bio = ?, username = ?, WHERE username = ?", array($github, $description, $newUsername, $username), "ssss");
 	}
 }
