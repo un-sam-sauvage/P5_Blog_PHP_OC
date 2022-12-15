@@ -36,7 +36,7 @@ class PostModel {
 	}
 
 	public function updatePost (int $id, string $title, string $content) {
-		$this->db->query("UPDATE posts SET title = ?, content = ? WHERE id = ?", array($title, $conntent, $id), "ssi");
+		$this->db->query("UPDATE posts SET title = ?, content = ? WHERE id = ?", array($title, $content, $id), "ssi");
 	}
 
 	public function deletePost (int $id){

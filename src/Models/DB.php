@@ -40,7 +40,15 @@ class DB
 		$preparedQuery = $this->db->prepare($query);
 		$preparedQuery->bind_param($type, ...$params);
 		$preparedQuery->execute();
-		return mysqli_fetch_assoc($preparedQuery);
+		$result = $preparedQuery->get_result();
+		$arrayReturn = array();
+		while ($row = $result->fetch_assoc()) {
+			$arrayReturn[] = $row;
+		}
+		if(count($arrayReturn) == 1) {
+			return $arrayReturn[0];
+		}
+		return $arrayReturn;
 	}
 
 	/**
@@ -64,6 +72,11 @@ class DB
 	}
 
 	public function selectWithoutPreparation (string $query) {
-		return mysqli_fetch_assoc($this->db->query($query));
+		$result = $this->db->query($query);
+		$arrayReturn = array();
+		while ($row = mysqli_fetch_assoc($result)) {
+			$arrayReturn[] = $row;
+		}
+		return $arrayReturn;
 	}
 }

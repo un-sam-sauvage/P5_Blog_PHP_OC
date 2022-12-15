@@ -1,12 +1,33 @@
-<nav>
-	<a href="/">Back To Home</a>
-	<a href="/posts">All post</a>
-	<?php if (isset($_SESSION["username"])) { ?>
-		<a href="/profile">Go to your profile</a>
-		<a href="/logout">Disconnect</a>
-		<p><?= $_SESSION["username"] ?></p>
-	<?php } else { ?>
-		<a href="/login">Login</a>
-		<a href="/register">Register</a>
-	<?php } ?>
+<nav style="padding-left:2%;" class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
+	<a class="navbar-brand" href="/">MyBlog</a>
+	<button class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div id="navbarNav" class="collapse navbar-collapse">
+		<ul class="navbar-nav">
+			<li class="nav-item active">
+				<a class="nav-link" href="/posts">All post</a>
+			</li>
+
+			<?php if (isset($_SESSION["username"])) { ?>
+			
+			<li class="nav-item active">
+				<a class="nav-link" href="/profile"><?= $_SESSION["username"] ?>'s profile</a>
+			</li>
+			<li class="nav-item active">
+				<a class="nav-link" href="/logout">Disconnect</a>
+			</li>
+
+			<?php } else { ?>
+
+			<li class="nav-item active">
+				<a class="nav-link" href="/login">Login</a>
+			</li>
+			<li class="nav-item active">
+				<a class="nav-link" href="/register">Register</a>
+			</li>
+
+			<?php } ?>
+		</ul>
+	</div>
 </nav>

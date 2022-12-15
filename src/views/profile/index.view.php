@@ -1,20 +1,28 @@
+<div class="container" style="padding-top:2%;">
 
-<div id="user-infos">
-	<h1>Welcome to your profile <span id="username"><?= strtoupper($_SESSION["username"]) ?></span> !</h1>
-	<p id="description"><?= $userInfos["description"] ?> </p>
-	<a href="github.com/<?= $userInfos["github"] ?>" id="github">Github Page</a>
-</div>
-
-<button id="btn-edit">Edit your profile</button>
-
-<div id="edit-profile" class="hidden">
-	<label for="">Change your username (must be unique)</label>
-	<input type="text" id="username-edit" value="<?= $_SESSION["username"] ?>">
-	<label for="">Add you Github Account</label>
-	<input type="text" id="github-edit" value="<?= $userInfos["github"] ?>">
-	<label for="">Change your description</label>
-	<textarea id="description-edit" cols="30" rows="10"><?= $userInfos["description"] ?></textarea>
-	<button id="submit-change">Validate new infos</button>
+	<div id="user-infos">
+		<h1>Welcome to your profile <span id="username"><?= strtoupper($_SESSION["username"]) ?></span> !</h1>
+		<p id="description"><?= $userInfos["description"] ?> </p>
+		<a href="github.com/<?= $userInfos["github"] ?>" id="github">Github Page</a>
+	</div>
+	
+	<button style="margin: 5% 0 2%;"class="btn btn-info" id="btn-edit">Edit your profile</button>
+	
+	<div id="edit-profile" style="width:30rem;" class="hidden">
+		<div class="form-group">
+			<label for="">Change your username (must be unique)</label>
+			<input class="form-control" type="text" id="username-edit" value="<?= $_SESSION["username"] ?>" placeholder="new username">
+		</div>
+		<div class="form-group">
+			<label for="">Add you Github Account</label>
+			<input class="form-control" type="text" id="github-edit" value="<?= $userInfos["github"] ?>" placeholder="name of your github account">
+		</div>
+		<div class="form-group">
+			<label for="">Change your description</label>
+			<textarea class="form-control" id="description-edit" cols="30" rows="10" placeholder="Describe yourself"><?= $userInfos["description"] ?></textarea>
+		</div>
+		<button style="margin-top: 2%;"class="btn btn-success" id="submit-change">Validate new infos</button>
+	</div>
 </div>
 
 <script type="module">

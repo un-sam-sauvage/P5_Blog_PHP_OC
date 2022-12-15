@@ -2,14 +2,13 @@
 namespace App\Controller;
 
 use App\Models\PostModel;
+use Exception;
 
 class PostController extends BaseController {
 	
 	public function showAllPost () {
 		$postModel = new PostModel();
 		$allPost = $postModel->getAllPost();
-		var_dump($allPost);
-		die;
 		$this->render("posts/allPost.view.php",array("posts" => $allPost, "title" => "allPost"));
 	}
 
@@ -27,7 +26,7 @@ class PostController extends BaseController {
 	public function createPost () {
 		$postModel = new PostModel();
 		if($_SESSION["user_id"]) {
-			$postModel->createPost($_SESSION["user_id"],$_POST["title"],$_POST["content"]);
+			$postModel->createPost($_SESSION["user_id"],htmlspecialchars($_POST["title"]),htmlspecialchars($_POST["content"]));
 		} else {
 			$this->error("L'id de l'utilisateur n'est pas défini");
 		}
@@ -35,16 +34,27 @@ class PostController extends BaseController {
 		$this->render("posts/allPost.view.php", array("posts" => $allPost, "title" =>"allPost"));
 	}
 	public function ajaxPost () {
-		if(isset($_POST["route"])) {
-			if($_POST["route"] == "deletePost" && isset($_POST["postID"])) {
-				echo deletePost($_POST["postID"]);
-			} else if ($_POST["route"] == "updatePost" && isset($_POST["postID"]) && isset($_POST["content"]) && isset($_POST["title"])){
-				echo updatePost($_POST["postID"], $_POST["content"], $_POST["title"]);
+		try {
+			if(isset($_POST["route"])) {
+				switch ($_POST["route"]) {
+					case "deletePost" :
+						if(isset($_POST["postID"]))
+						echo $this->deletePost($_POST["postID"]);
+						else throw new Exception("No postId");
+						break;
+					case "updatePost" :
+						if (isset($_POST["postID"]) && isset($_POST["content"]) && isset($_POST["title"]))
+							echo $this->updatePost($_POST["postID"], $_POST["content"], $_POST["title"]);
+						else throw new Exception("No postID or content or title");
+						break;
+					default:
+						throw new Exception("wrong route indicated");
+				}
 			} else {
-				echo json_encode(array("error" => "error in POST or wrong route indicated", "POST" => $_POST));
+				throw new Exception("No route indicated");
 			}
-		} else {
-			echo json_encode(array("error" => "no route indicated"));
+		}catch (Exception $e) {
+			echo json_encode(array("error" => $e->getMessage(), "POST" => $_POST));
 		}
 	}
 
@@ -56,7 +66,7 @@ class PostController extends BaseController {
 
 	private function updatePost (int $postId, string $content, string $title) {
 		$postModel = new PostModel();
-		$postModel->updatePost($postId, $title, $content);
+		$postModel->updatePost(htmlspecialchars($postId), htmlspecialchars($title), htmlspecialchars($content));
 		return json_encode(array("success" => "post has been successfully updated"));
 	}
 }

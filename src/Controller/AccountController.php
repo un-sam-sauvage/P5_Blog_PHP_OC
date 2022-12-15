@@ -23,8 +23,8 @@ class AccountController extends BaseController
 	}
 	
 	public function register() {
+		$msg = '';
 		if (isset($_POST["register"])) {
-			$msg = '';
 			if (empty($_POST["username"]) || empty($_POST["email"]) || empty($_POST["password"]) || empty($_POST["confirmPassword"]))
 				$msg = "Please fill all the inputs";
 			else if (htmlspecialchars($_POST["password"], ENT_QUOTES) != htmlspecialchars($_POST["confirmPassword"], ENT_QUOTES))
