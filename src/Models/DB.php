@@ -6,7 +6,7 @@ use mysqli;
 
 class DB
 {
-	private $db;
+	private mysqli $db;
 
 	public function __construct()
 	{
@@ -28,11 +28,19 @@ class DB
 	 * 
 	 * @param string $query the SELECT query to execute
 	 * 
+	 * @param array $params the params to change in the prepared query
+	 * 
+	 * @param string $type the type of all params given (if two string => "ss" if one string one int "si"...)
+	 * 
 	 * @return array|void return the result in an assoc array
+	 * 
 	 */
-	public function select(string $query)
+	public function select(string $query, array $params, string $type)
 	{
-		return mysqli_fetch_assoc($this->db->query($query));
+		$preparedQuery = $this->db->prepare($query);
+		$preparedQuery->bind_param($type, ...$params);
+		$preparedQuery->execute();
+		return mysqli_fetch_assoc($preparedQuery);
 	}
 
 	/**
@@ -41,10 +49,21 @@ class DB
 	 * 
 	 * @param string the query to execute
 	 * 
+	 * @param array $params the params to change in the prepared query
+	 * 
+	 * @param string $type the type of all params given (if two string => "ss" if one string one int "si"...)
+	 * 
 	 * @return mixed the result of the query
 	 */
-	public function query(string $query)
+	public function query(string $query, array $params, string $type)
 	{
-		return $this->db->query($query);
+		$preparedQuery = $this->db->prepare($query);
+		$preparedQuery->bind_param($type, ...$params);
+		$preparedQuery->execute();
+		return $preparedQuery;
+	}
+
+	public function selectWithoutPreparation (string $query) {
+		return mysqli_fetch_assoc($this->db->query($query));
 	}
 }
