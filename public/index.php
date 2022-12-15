@@ -23,6 +23,16 @@ $router->map('POST', '/login', [
 	'method' => "login"
 ], "account-login-post");
 
+$router->map('GET', "/register", [
+	'controller' => 'AccountController',
+	'method' => 'register'
+], 'account-register');
+
+$router->map('POST', "/register", [
+	'controller' => 'AccountController',
+	'method' => 'register'
+], 'account-post-register');
+
 // Page de Profile
 $router->map('GET', '/profile', [
 	'controller' => 'ProfileController',
@@ -34,11 +44,30 @@ $router->map('POST', '/profile', [
 	'method' => "updateProfile"
 ], "profile-update");
 
-$router->map('GET', '/post/[i:id]', [
+$router->map('GET', '/posts/[i:id]', [
 	'controller' => 'PostController',
-	'method' => 'show'
+	'method' => 'showSinglePost'
 ], 'post-show');
 
+$router->map('GET', '/posts', [
+	'controller' => 'PostController',
+	'method' => 'showAllPost'
+], 'all-post-show');
+
+$router->map('GET', '/create-post', [
+	'controller' => 'PostController',
+	'method'=> 'renderCreatePost'
+], 'show-create-post');
+
+$router->map('POST', '/create-post', [
+	'controller' => 'PostController',
+	'method' => 'createPost'
+], 'create-post');
+
+$router->map("POST", "/ajax-post",[
+	"controller" => "PostController",
+	"method" => "ajaxPost"
+], "ajax-post");
 
 $match = $router->match();
 
