@@ -27,7 +27,7 @@ class UserModel
 	public function checkIfLogin($username, $password)
 	{
 
-		$hash = $this->db->select('SELECT password, id FROM users WHERE username = "' . $username . '" OR email = "' . $username . '"');
+		$hash = $this->db->select('SELECT password, id FROM users WHERE username = ? OR email = ?', array($username, $username), "ss");
 		if (empty($hash)) {
 			return false;
 		} else {
