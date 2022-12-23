@@ -100,4 +100,12 @@ class UserModel
 	{
 		$this->db->query("UPDATE users set github = ?, bio = ?, username = ?, WHERE username = ?", array($github, $description, $newUsername, $username), "ssss");
 	}
+
+	public function isAdmin (int $userId) {
+		$isAdmin = $this->db->select("SELECT isAdmin FROM users WHERE id = ?", array($userId), 'i');
+		if ($isAdmin === 1) {
+			return true;
+		}
+		return false;
+	}
 }
