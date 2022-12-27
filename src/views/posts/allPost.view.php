@@ -5,7 +5,10 @@
 			<div class="card-body">
 				<h4 class="card-title"><?= $post["title"] ?></h4>
 				<p class="card-text"><?= (strlen($post["content"]) > 150) ? substr($post["content"],0,150)."..." : $post["content"] ?></p>
-				<p class="post-author">By : <span class="text-muted"><?= $post["username"]?></span></p>
+				<p class="post-author">
+					By : <span class="text-muted"><?= $post["username"]?></span> 
+					at : <span class="text-muted"><?= date("d-m-Y", strtotime($post["created_at"])) ?></span>
+				</p>
 				<a class="btn btn-sm btn-secondary" href="/posts/<?= $post["id"] ?>">See full post</a>
 			</div>
 		</div>
