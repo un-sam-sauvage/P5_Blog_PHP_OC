@@ -14,8 +14,9 @@ class PostController extends BaseController {
 
 	public function showSinglePost (int $id) {
 		$postModel = new PostModel();
-		$post = $postModel->getPost($id, $_SESSION["user_id"]);
-		$isAuthor = $postModel->isAuthor($post["id"],$_SESSION["user_id"]);
+		$userId = isset($_SESSION["user_id"]) ? $_SESSION["user_id"] : -1;
+		$post = $postModel->getPost($id, $userId);
+		$isAuthor = $postModel->isAuthor($post["id"],$userId);
 		$this->render("posts/singlePost.view.php", array("post" => $post, "title" => $post["title"], "isAuthor" => $isAuthor));
 	}
 
