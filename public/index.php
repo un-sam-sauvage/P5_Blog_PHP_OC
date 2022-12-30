@@ -69,6 +69,12 @@ $router->map("POST", "/ajax-post",[
 	"method" => "ajaxPost"
 ], "ajax-post");
 
+$router->map("POST", "/ajax-comment", [
+	"controller" => "CommentController",
+	"method" => "ajaxComment",
+], "ajax-comment");
+
+
 $match = $router->match();
 
 // Dispatcher

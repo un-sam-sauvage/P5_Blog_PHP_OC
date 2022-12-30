@@ -20,10 +20,11 @@ class CommentModel {
 			, array($postId), "i");
 	}
 
-	public function createComment ( string $content, int $postId, int $userId) {
+	public function createComment (string $content, int $postId, int $userId) {
 		$this->db->query(
 			"INSERT INTO comments 
-			(content = ?, postId = ?, userId = ?, isAuthorized = 0)",
+			(content, postId, authorId, isAuthorized)
+			VALUES (?, ?, ?, 0)",
 			array($content, $postId, $userId), "ssi"
 		);
 	}

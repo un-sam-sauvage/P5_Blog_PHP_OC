@@ -10,6 +10,12 @@
 		width: 50rem;
 		padding	: 2% 1%;
 	}
+	#create-comment {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		width: 40%;
+	}
 </style>
 	<h1 class="post-title"><?= $post["title"] ?></h1>
 	<p class="post-meta">
@@ -26,16 +32,16 @@
 		<textarea style="margin: 2% 0;" class="form-control" id="edit-content" cols="30" rows="10"><?= $post["content"] ?></textarea>
 		<button class="btn btn-success" id="edit-submit">Submit changes</button>
 	</div>
-</div>
-<?php } ?>
+	<?php } ?>
 	<div id="comment-section">
 		<?php if (isset($_SESSION["user_id"])) {?>
 			<div id="create-comment">
 				<textarea name="comment-content" id="comment-content" cols="30" rows="10" placeholder="Write a comment for this post"></textarea>
-				<button id="submit-comment">Send your comment to moderation</button>
+				<button id="submit-comment" class="btn btn-success">Send your comment to moderation</button>
 			</div>
 		<?php }?>
 	</div>
+</div>
 <script type="module">
 	import {fct_fetchData} from "/js/mod_ajax.js";
 	/*
@@ -78,8 +84,9 @@
 	*/
 
 	//get post comments
-	windows.addEventListener("load", () => {
-		fct_fetchData("get-post-comments", {
+	window.addEventListener("load", () => {
+		fct_fetchData("ajax-comment", {
+			route : "get-post-comments",
 			postId : <?= $post["id"] ?>
 		}).then(data => {
 			console.log(data);
@@ -89,9 +96,10 @@
 	//create comment
 	document.getElementById("submit-comment").addEventListener("click", btn => {
 		btn.preventDefault();
-		fct_fetchData("create-comment", {
-			content : document.getElementById("comment-content"),
-			userId : <?= $_SESSION["user_id"] ?>,
+		fct_fetchData("ajax-comment", {
+			route : "create-comment",
+			content : document.getElementById("comment-content").value,
+			postId : <?= $post["id"] ?>,
 		}).then (data => {
 			console.log(data);
 			if(data.success) {
