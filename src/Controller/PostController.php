@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Models\CommentModel;
 use App\Models\PostModel;
 use Exception;
 
@@ -14,10 +15,13 @@ class PostController extends BaseController {
 
 	public function showSinglePost (int $id) {
 		$postModel = new PostModel();
+		$commentModel = new CommentModel();
 		$userId = isset($_SESSION["user_id"]) ? $_SESSION["user_id"] : -1;
 		$post = $postModel->getPost($id, $userId);
 		$isAuthor = $postModel->isAuthor($post["id"],$userId);
-		$this->render("posts/singlePost.view.php", array("post" => $post, "title" => $post["title"], "isAuthor" => $isAuthor));
+		$comments = $commentModel->getPostComment($id);
+		dump($comments);
+		$this->render("posts/singlePost.view.php", array("post" => $post, "title" => $post["title"], "isAuthor" => $isAuthor, "comments" => $comments));
 	}
 
 	public function renderCreatePost () {

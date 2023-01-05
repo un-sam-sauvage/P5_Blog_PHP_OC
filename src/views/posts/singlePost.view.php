@@ -34,12 +34,25 @@
 	</div>
 	<?php } ?>
 	<div id="comment-section">
-		<?php if (isset($_SESSION["user_id"])) {?>
-			<div id="create-comment">
-				<textarea name="comment-content" id="comment-content" cols="30" rows="10" placeholder="Write a comment for this post"></textarea>
-				<button id="submit-comment" class="btn btn-success">Send your comment to moderation</button>
-			</div>
-		<?php }?>
+		<div id="display-comments">
+			<?php if(!empty($comments)) { foreach ($comments as $comment) { ?>
+				<div class="card">
+					<p>
+						By : <span class="text-muted"><?= $comment["username"] ?></span> 
+						at : <span class="text-muted"><?= $comment["created_at"] ?></span>
+					</p>
+					<p class="card-text"><?= $comment["content"] ?></p>
+				</div>
+			<?php }} else {echo"pas de commentaires";} ?>
+		</div>
+		<div id="create-comment">
+			<?php if (isset($_SESSION["user_id"])) {?>
+				<div id="create-comment">
+					<textarea name="comment-content" id="comment-content" cols="30" rows="10" placeholder="Write a comment for this post"></textarea>
+					<button id="submit-comment" class="btn btn-success">Send your comment to moderation</button>
+				</div>
+			<?php }?>
+		</div>
 	</div>
 </div>
 <script type="module">
@@ -82,17 +95,6 @@
 	/*
 	* Comment manager
 	*/
-
-	//get post comments
-	window.addEventListener("load", () => {
-		fct_fetchData("ajax-comment", {
-			route : "get-post-comments",
-			postId : <?= $post["id"] ?>
-		}).then(data => {
-			console.log(data);
-		})
-	})
-
 	//create comment
 	document.getElementById("submit-comment").addEventListener("click", btn => {
 		btn.preventDefault();

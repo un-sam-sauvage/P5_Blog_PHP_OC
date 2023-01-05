@@ -32,6 +32,16 @@ class CommentController extends BaseController {
 							echo $this->rejectComment($_POST["id"], $_POST["comment"]);
 						else throw new Exception("no id indicated");
 						break;
+					case "edit-comment" :
+						if(isset($_POST["id"]) && isset($_POST["content"]))
+							echo $this->editComment($_POST["id"], $_POST["content"]);
+						else throw new Exception("the content or id cannot be empty");
+						break;
+					case "delete-comment":
+						if(isset($_POST["id"])) 
+							echo $this->deleteComment($_POST["id"]);
+						else throw new Exception("id cannot be empty");
+						break;
 					default :
 						throw new Exception("the route indicated doesn't exist");
 				}
@@ -75,6 +85,20 @@ class CommentController extends BaseController {
 		return json_encode(array("typeMsg" => "msg-success", "msg" => "The comment has been rejected sucessfully"));
 	}
 
+	private function editComment ($commentId, $content) {
+		$commentModel = new CommentModel();
+		if (empty($content)) {
+			return json_encode(array("typeMsg" => "msg-fail", "msg" => "The new comment cannot be empty"));
+		}
+		$commentModel->editComment($commentId, htmlspecialchars($content));
+		return json_encode(array("typeMsg" => "msg-success", "msg" => "You comment has been sent to validation"));
+	}
+
+	private function deleteComment ($commentId) {
+		$commentModel = new CommentModel();
+		$commentModel->deleteComment($commentId);
+		return json_encode(array("typeMsg" => "msg-success", "msg" => "your comments has been deleted"));
+	}
 
 	public function getCommentsToValidate () {
 		$commentModel = new CommentModel();

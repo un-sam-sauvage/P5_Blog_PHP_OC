@@ -34,7 +34,7 @@ class CommentModel {
 	}
 
 	public function editComment (int $commentId, string $content) {
-		$this->db->query("UPDATE comments SET content = ? WHERE id = ?", array($content, $commentId), "si");
+		$this->db->query("UPDATE comments SET content = ?, updated_at = CURRENT_TIMESTAMP, isAuthorized = 0, rejectionComment = '' WHERE id = ?", array($content, $commentId), "si");
 	}
 
 	public function getCommentAnswer (int $commentId) {
@@ -58,10 +58,14 @@ class CommentModel {
 	}
 
 	public function validateComment ($commentId) {
-		$this->db->query("UPDATE comments SET isAuthorized = 1 WHERE id = ?", array($commentId), "i");
+		$this->db->query("UPDATE comments SET isAuthorized = 1, rejectionComment = '' WHERE id = ?", array($commentId), "i");
 	}
 
 	public function rejectComment (int $commentId, string $comment) {
 		$this->db->query("UPDATE comments SET isAuthorized = 0, rejectionComment = ? WHERE id = ?", array($comment, $commentId), "si");
+	}
+
+	public function getUserComments ($userId) {
+		return $this->db->select("SELECT * FROM comments WHERE authorId = ?", array($userId), "i");
 	}
 }

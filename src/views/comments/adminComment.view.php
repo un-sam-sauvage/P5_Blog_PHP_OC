@@ -50,6 +50,7 @@
 	<?php } ?>
 </div>
 <div id="wrapper-reject" class="hidden">
+	<span id="close-reject" style="color:red;font-weight:bold;cursor:pointer;">X</span>
 	<div id="div-reject-comment" class="form-group">
 		<input type="hidden" id="comment-id">
 		<input type="text" class="form-control" id="reject-comment" placeholder="explain briefly the rejection">
@@ -74,22 +75,27 @@
 	})
 
 	document.querySelectorAll(".reject").forEach(element => {
-		element.addEventListener("click", btn => {
-			btn.preventDefault();
+		element.addEventListener("click", btnClicked => {
+			btnClicked.preventDefault();
 			document.getElementById("wrapper-reject").classList.toggle("hidden");
-			document.getElementById("comment-id").value = btn.target.parentNode.parentNode.id;
-			document.getElementById("confirm-reject").addEventListener("click", btn => {
-				btn.preventDefault();
-				fct_fetchData("ajax-comment", {
-					route : "reject-comment",
-					id : document.getElementById("comment-id").value,
-					comment : document.getElementById("reject-comment").value
-				}).then(data => {
-					console.log(data);
-					fct_setAlerte(data.msg, data.typeMsg)
-					btn.target.parentNode.parentNode.remove();
-				})
-			})
+			document.getElementById("comment-id").value = btnClicked.target.parentNode.parentNode.id;
 		})
+	})
+
+	document.getElementById("confirm-reject").addEventListener("click", btn => {
+		btn.preventDefault();
+		fct_fetchData("ajax-comment", {
+			route : "reject-comment",
+			id : document.getElementById("comment-id").value,
+			comment : document.getElementById("reject-comment").value
+		}).then(data => {
+			console.log(data);
+			fct_setAlerte(data.msg, data.typeMsg)
+			document.getElementById("wrapper-reject").classList.toggle("hidden");
+			document.getElementById(document.getElementById("comment-id").value).remove();
+		})
+	})
+	document.getElementById("close-reject").addEventListener("click", () => {
+		document.getElementById("wrapper-reject").classList.add("hidden");
 	})
 </script>

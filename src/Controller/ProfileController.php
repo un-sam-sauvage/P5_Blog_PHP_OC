@@ -13,7 +13,7 @@ class ProfileController extends BaseController
 		$userModel = new UserModel();
 		$userInfos = $userModel->getProfileInfo($_SESSION["username"]);
 		$commentModel = new CommentModel();
-		$userComment = $commentModel->getUsersComments();
+		$userComment = $commentModel->getUserComments($_SESSION["user_id"]);
 		// Affiche la vue
 		$this->render('profile/profile.view.php', array('userInfos' => $userInfos, 'title' => 'Page de profil', "comments" => $userComment));
 	}

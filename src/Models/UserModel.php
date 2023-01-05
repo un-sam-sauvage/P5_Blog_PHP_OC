@@ -31,7 +31,7 @@ class UserModel
 	public function getUserId()
 	{
 		if (isset($this->id))
-			return $this->id;
+			return array("id" => $this->id, "isAdmin" => $this->isAdmin($this->id));
 		return false;
 	}
 
