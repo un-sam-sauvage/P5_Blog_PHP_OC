@@ -74,6 +74,10 @@ $router->map("POST", "/ajax-comment", [
 	"method" => "ajaxComment",
 ], "ajax-comment");
 
+$router->map("GET", "/validate-comments", [
+	"controller" => "CommentController",
+	"method" => "getCommentsToValidate"
+], "get-comments-validate");
 
 $match = $router->match();
 

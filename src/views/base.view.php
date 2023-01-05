@@ -16,12 +16,12 @@ $title = $title ?? 'Homepage';
 	<style>
 		#msg-systeme {
 			position: fixed;
-			top: 20px;
-			left: 50px;
+			top: 40px;
+			left: 100px;
 			z-index: 5;
 		}
 		.msg-success {
-			background-color: lightgreen;
+			background-color: green;
 			color: green;
 		}
 		.msg-warning {
@@ -58,7 +58,15 @@ $title = $title ?? 'Homepage';
 	<p id="msg-systeme">
 		<?= isset($msgSysteme) ? $msgSysteme : "" ?>
 	</p>
+	<script type="text/javascript">
+		function fct_setAlerte (msg, className) {
+			let msgSysteme = document.getElementById("msg-systeme");
+			msgSysteme.classList = [];
+			msgSysteme.classList.add("msg");
+			msgSysteme.classList.add(className);
+			msgSysteme.textContent = msg;
+		}
+	</script>
 	<?= $bodyContent ?>
 </body>
-
 </html>

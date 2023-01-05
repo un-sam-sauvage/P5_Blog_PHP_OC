@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Models\CommentModel;
 use App\Models\UserModel;
 use Exception;
 
@@ -11,9 +12,10 @@ class ProfileController extends BaseController
 	{
 		$userModel = new UserModel();
 		$userInfos = $userModel->getProfileInfo($_SESSION["username"]);
-
+		$commentModel = new CommentModel();
+		$userComment = $commentModel->getUsersComments();
 		// Affiche la vue
-		$this->render('profile/index.view.php', ['userInfos' => $userInfos, 'title' => 'Page de profil']);
+		$this->render('profile/profile.view.php', array('userInfos' => $userInfos, 'title' => 'Page de profil', "comments" => $userComment));
 	}
 
 	public function updateProfile () {

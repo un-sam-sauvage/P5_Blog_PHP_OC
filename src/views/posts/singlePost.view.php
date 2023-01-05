@@ -103,9 +103,7 @@
 		}).then (data => {
 			console.log(data);
 			if(data.success) {
-				msgSysteme = document.getElementById("msg-systeme");
-				msgSysteme.classList.add("msg-success");
-				msgSysteme.textContent = "Your comment has been sent to moderation for review. It will be published soon :)";
+				fct_setAlerte("Your comment has been sent to moderation for review. It will be published soon :)", "msg-success");
 			}
 		})
 	})

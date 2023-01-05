@@ -2,7 +2,9 @@
 namespace App\Controller;
 
 use App\Models\CommentModel;
+use App\Models\UserModel;
 use Exception;
+use Symfony\Component\VarDumper\VarDumper;
 
 class CommentController extends BaseController {
 
@@ -20,6 +22,16 @@ class CommentController extends BaseController {
 							echo $this->createComment($_POST["content"], $_POST["postId"], $_SESSION["user_id"]);
 						else throw new Exception("There is an error in parameter. If POST is good then check if user_id is good too " . $_SESSION["user_id"]);
 						break;
+					case "validate-comment":
+						if(isset($_POST["id"]))
+							echo $this->validateComment($_POST["id"]);
+						else throw new Exception("no post id indicated");
+						break;
+					case "reject-comment":
+						if(isset($_POST["id"]))
+							echo $this->rejectComment($_POST["id"], $_POST["comment"]);
+						else throw new Exception("no id indicated");
+						break;
 					default :
 						throw new Exception("the route indicated doesn't exist");
 				}
@@ -35,7 +47,7 @@ class CommentController extends BaseController {
 	private function createComment (string $content, int $postId, int $userId) {
 		$commentModel = new CommentModel();
 		if (!isset($_SESSION["user_id"])) {
-			$this->error("Merci de vous connecter afin de créer un post");
+			$this->error("Please connect before creating a post");
 		}
 		$commentModel->createComment(htmlspecialchars($content), $postId, $userId);
 		return json_encode(array("success" => true));
@@ -46,5 +58,36 @@ class CommentController extends BaseController {
 		$comments = $commentModel->getPostComment($postId);
 		if (empty($comments)) return json_encode(array("msg" => "no comments"));
 		return json_encode(array("comments" => $comments));
+	}
+
+	private function validateComment (int $commentId) {
+		$commentModel = new CommentModel();
+		$commentModel->validateComment($commentId);
+		return json_encode(array("typeMsg" => "msg-success", "msg" => "The comment has been validated successfully"));
+	}
+
+	private function rejectComment (int $commentId, string $comment) {
+		$commentModel = new CommentModel();
+		if(empty($comment)) {
+			$comment = "";
+		}
+		$commentModel->rejectComment($commentId, $comment);
+		return json_encode(array("typeMsg" => "msg-success", "msg" => "The comment has been rejected sucessfully"));
+	}
+
+
+	public function getCommentsToValidate () {
+		$commentModel = new CommentModel();
+		$userModel = new UserModel();
+		if (isset($_SESSION["user_id"])) {
+			if ($userModel->isAdmin($_SESSION["user_id"])) {
+				$comments = $commentModel->getCommentsToValidate();
+				$this->render("comments/adminComment.view.php", array("title" => "Validate comments", "comments" => $comments));
+			} else {
+				$this->error("You don't have enough right to access this page");
+			}
+		} else {
+			$this->error("Please connect before accessing this page");
+		}
 	}
 }
