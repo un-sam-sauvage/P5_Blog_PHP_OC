@@ -39,6 +39,13 @@
 		left: 80%;
 		top: 10%;
 	}
+	.post-link {
+		color: black;
+		transition: color .15s;
+	}
+	.post-link:hover {
+		color: darkgray
+	}
 </style>
 
 <div class="container" style="padding-top:2%;">
@@ -88,6 +95,7 @@
 						<button data-id-comment="<?= $comment["id"] ?>" class="edit-comment btn btn-primary">Edit your comment</button>
 						<small>Another validation is needed after editing</small>
 						<button data-id-comment="<?= $comment["id"] ?>" class="delete-comment btn btn-danger">Delete your comment</button>
+						<small><a class="post-link" href="/posts/<?= $comment["postId"] ?>">Go to the post</a></small>
 					</div>
 				</div>
 			<?php } ?>

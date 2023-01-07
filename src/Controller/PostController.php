@@ -47,8 +47,8 @@ class PostController extends BaseController {
 						else throw new Exception("No postId");
 						break;
 					case "updatePost" :
-						if (isset($_POST["postID"]) && isset($_POST["content"]) && isset($_POST["title"]))
-							echo $this->updatePost($_POST["postID"], $_POST["content"], $_POST["title"]);
+						if (isset($_POST["postID"]) && isset($_POST["content"]) && isset($_POST["title"]) && isset($_POST["chapo"]))
+							echo $this->updatePost($_POST["postID"], $_POST["content"], $_POST["title"], $_POST["chapo"]);
 						else throw new Exception("No postID or content or title");
 						break;
 					default:
@@ -68,9 +68,9 @@ class PostController extends BaseController {
 		return json_encode(array("success" => "post has been successfully deleted"));
 	}
 
-	private function updatePost (int $postId, string $content, string $title) {
+	private function updatePost (int $postId, string $content, string $title, string $chapo) {
 		$postModel = new PostModel();
-		$postModel->updatePost(htmlspecialchars($postId), htmlspecialchars($title), htmlspecialchars($content));
-		return json_encode(array("success" => "post has been successfully updated"));
+		$postModel->updatePost(htmlspecialchars($postId), htmlspecialchars($title), htmlspecialchars($content), htmlspecialchars($chapo));
+		return json_encode(array("typeMsg" => "msg-success", "msg" => "post has been successfully updated"));
 	}
 }
