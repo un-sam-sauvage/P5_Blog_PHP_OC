@@ -6,13 +6,13 @@ session_start();
 // Routes de l'application
 $router = new AltoRouter();
 
-// Page d'accueil
+#region home
 $router->map('GET', '/', [
 	'controller' => 'HomeController',
 	'method' => 'index'
 ], 'home-index');
-
-// Page de login
+#endregion
+#region login and register
 $router->map('GET', '/login', [
 	'controller' => 'AccountController',
 	'method' => 'login'
@@ -33,7 +33,12 @@ $router->map('POST', "/register", [
 	'method' => 'register'
 ], 'account-post-register');
 
-// Page de Profile
+$router->map('GET', "/logout", [
+	'controller' => 'AccountController',
+	'method' => 'logout'
+], 'logout');
+#endregion
+#region profile
 $router->map('GET', '/profile', [
 	'controller' => 'ProfileController',
 	'method' => 'index'
@@ -43,7 +48,8 @@ $router->map('POST', '/profile', [
 	'controller' => "ProfileController",
 	'method' => "updateProfile"
 ], "profile-update");
-
+#endregion
+#region posts
 $router->map('GET', '/posts/[i:id]', [
 	'controller' => 'PostController',
 	'method' => 'showSinglePost'
@@ -68,7 +74,18 @@ $router->map("POST", "/ajax-post",[
 	"controller" => "PostController",
 	"method" => "ajaxPost"
 ], "ajax-post");
+#endregion
+#region comments
+$router->map("POST", "/ajax-comment", [
+	"controller" => "CommentController",
+	"method" => "ajaxComment",
+], "ajax-comment");
 
+$router->map("GET", "/validate-comments", [
+	"controller" => "CommentController",
+	"method" => "getCommentsToValidate"
+], "get-comments-validate");
+#endregion
 $match = $router->match();
 
 // Dispatcher

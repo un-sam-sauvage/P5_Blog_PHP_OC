@@ -13,8 +13,9 @@ class AccountController extends BaseController
 			$logged = $login->checkIfLogin(htmlspecialchars($_POST["username"], ENT_QUOTES), htmlspecialchars($_POST["password"], ENT_QUOTES));
 			if ($logged) {
 				$msgHTML = '<p class="msg success">Sucessfully logged in</p>';
-				$_SESSION["user_id"] = $login->getUserId();
+				$_SESSION["user_id"] = $login->getUserId()["id"];
 				$_SESSION["username"] = htmlspecialchars($_POST["username"], ENT_QUOTES);
+				$_SESSION["isAdmin"] = $login->getUserId()["isAdmin"];
 			} else {
 				$msgHTML = '<p class="msg alert">Wrong username or password</p>';
 			}
@@ -44,5 +45,10 @@ class AccountController extends BaseController
 			}
 		}
 		$this->render('account/register.view.php', ["msgHTML" => $msg, "title" => "Register Page"]);
+	}
+
+	public function logout () {
+		session_destroy();
+		$this->render('home/homepage.view.php', array("title" => "Homepage"));
 	}
 }

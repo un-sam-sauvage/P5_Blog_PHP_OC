@@ -45,10 +45,19 @@ class DB
 		while ($row = $result->fetch_assoc()) {
 			$arrayReturn[] = $row;
 		}
-		if(count($arrayReturn) == 1) {
-			return $arrayReturn[0];
-		}
 		return $arrayReturn;
+	}
+
+	public function selectSingle(string $query, array $params, string $type) {
+		$preparedQuery = $this->db->prepare($query);
+		$preparedQuery->bind_param($type, ...$params);
+		$preparedQuery->execute();
+		$result = $preparedQuery->get_result();
+		$arrayReturn = array();
+		while ($row = $result->fetch_assoc()) {
+			$arrayReturn[] = $row;
+		}
+		return $arrayReturn[0];
 	}
 
 	/**

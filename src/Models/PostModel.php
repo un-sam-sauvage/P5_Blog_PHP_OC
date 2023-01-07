@@ -11,15 +11,15 @@ class PostModel {
 
 	public function getAllPost () {
 		return $this->db->selectWithoutPreparation(
-			"SELECT posts.id, posts.content, posts.title, users.username 
+			"SELECT posts.id, posts.content, posts.title, users.username, posts.created_at, posts.chapo
 			FROM posts 
 			JOIN users ON users.id=posts.author"
 		);
 	}
 
 	public function getPost (int $id) {
-		return $this->db->select(
-			"SELECT posts.id, posts.content, posts.title, users.username 
+		return $this->db->selectSingle(
+			"SELECT posts.id, posts.content, posts.title, users.username, posts.created_at, posts.updated_at, posts.chapo
 			FROM posts 
 			JOIN users ON users.id=posts.author 
 			WHERE posts.id = ?"
@@ -35,11 +35,12 @@ class PostModel {
 		$this->db->query("INSERT INTO posts (title, content, author) VALUES (?, ?, ?)", array($title, $content, $author), "ssi");
 	}
 
-	public function updatePost (int $id, string $title, string $content) {
-		$this->db->query("UPDATE posts SET title = ?, content = ? WHERE id = ?", array($title, $content, $id), "ssi");
+	public function updatePost (int $id, string $title, string $content, string $chapo) {
+		$this->db->query("UPDATE posts SET title = ?, content = ?, chapo = ? WHERE id = ?", array($title, $content, $chapo, $id), "sssi");
 	}
 
 	public function deletePost (int $id){
+		$this->db->query("DELETE FROM comments WHERE postId = ?", array($id), "i");
 		$this->db->query("DELETE FROM posts WHERE id = ?", array($id), "i");
 	}
 }
