@@ -18,7 +18,7 @@ class UserModel
 	public function checkIfLogin($username, $password)
 	{
 
-		$hash = $this->db->select('SELECT password, id FROM users WHERE username = ? OR email = ?', array($username, $username), "ss");
+		$hash = $this->db->selectSingle('SELECT password, id FROM users WHERE username = ? OR email = ?', array($username, $username), "ss");
 		if (empty($hash)) {
 			return false;
 		} else {
@@ -58,7 +58,7 @@ class UserModel
 
 	public function getProfileInfo($username)
 	{
-		return $this->db->select("SELECT github, bio as description FROM users WHERE username = ?", array($username), "s");
+		return $this->db->selectSingle("SELECT github, bio as description FROM users WHERE username = ?", array($username), "s");
 	}
 
 	public function setProfileInfo($username, $github, $description, $newUsername)
@@ -67,7 +67,7 @@ class UserModel
 	}
 
 	public function isAdmin (int $userId) {
-		$isAdmin = $this->db->select("SELECT isAdmin FROM users WHERE id = ?", array($userId), 'i')["isAdmin"];
+		$isAdmin = $this->db->selectSingle("SELECT isAdmin FROM users WHERE id = ?", array($userId), 'i')["isAdmin"];
 		if ($isAdmin === 1) {
 			return true;
 		}

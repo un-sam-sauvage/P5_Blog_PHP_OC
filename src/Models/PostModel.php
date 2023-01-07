@@ -18,7 +18,7 @@ class PostModel {
 	}
 
 	public function getPost (int $id) {
-		return $this->db->select(
+		return $this->db->selectSingle(
 			"SELECT posts.id, posts.content, posts.title, users.username, posts.created_at, posts.updated_at
 			FROM posts 
 			JOIN users ON users.id=posts.author 

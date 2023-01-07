@@ -20,7 +20,6 @@ class PostController extends BaseController {
 		$post = $postModel->getPost($id, $userId);
 		$isAuthor = $postModel->isAuthor($post["id"],$userId);
 		$comments = $commentModel->getPostComment($id);
-		dump($comments);
 		$this->render("posts/singlePost.view.php", array("post" => $post, "title" => $post["title"], "isAuthor" => $isAuthor, "comments" => $comments));
 	}
 

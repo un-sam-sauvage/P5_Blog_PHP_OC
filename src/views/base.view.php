@@ -37,6 +37,7 @@ $title = $title ?? 'Homepage';
 			padding: 1%;
 			color: white;
 			border-radius: 20px;
+			cursor: pointer;
 		}
 
 		.alert {
@@ -59,6 +60,11 @@ $title = $title ?? 'Homepage';
 		<?= isset($msgSysteme) ? $msgSysteme : "" ?>
 	</p>
 	<script type="text/javascript">
+		document.getElementById("msg-systeme").addEventListener("click", (div) => {
+			div.target.classList = [];
+			div.target.textContent = "";
+		});
+
 		function fct_setAlerte (msg, className) {
 			let msgSysteme = document.getElementById("msg-systeme");
 			msgSysteme.classList = [];

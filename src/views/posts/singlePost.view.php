@@ -14,7 +14,16 @@
 		display: flex;
 		flex-direction: column;
 		gap: 10px;
-		width: 40%;
+		width: 80%;
+		margin: 2% auto;
+	}
+	#create-comment > textarea{
+		resize: none;
+	}
+	.card-comment {
+		padding: 2%;
+		width: 80%;
+		margin : 0 auto 2%;
 	}
 </style>
 	<h1 class="post-title"><?= $post["title"] ?></h1>
@@ -34,9 +43,18 @@
 	</div>
 	<?php } ?>
 	<div id="comment-section">
+		<div id="create-comment">
+			<?php if (isset($_SESSION["user_id"])) {?>
+				<div id="create-comment">
+					<textarea name="comment-content" id="comment-content" cols="30" rows="5" placeholder="Write a comment for this post" class="form-control"></textarea>
+					<button id="submit-comment" class="btn btn-success">Send your comment to moderation</button>
+				</div>
+			<?php }?>
+		</div>
 		<div id="display-comments">
+			<h2>All comments :</h2>
 			<?php if(!empty($comments)) { foreach ($comments as $comment) { ?>
-				<div class="card">
+				<div class="card card-comment">
 					<p>
 						By : <span class="text-muted"><?= $comment["username"] ?></span> 
 						at : <span class="text-muted"><?= $comment["created_at"] ?></span>
@@ -44,14 +62,6 @@
 					<p class="card-text"><?= $comment["content"] ?></p>
 				</div>
 			<?php }} else {echo"pas de commentaires";} ?>
-		</div>
-		<div id="create-comment">
-			<?php if (isset($_SESSION["user_id"])) {?>
-				<div id="create-comment">
-					<textarea name="comment-content" id="comment-content" cols="30" rows="10" placeholder="Write a comment for this post"></textarea>
-					<button id="submit-comment" class="btn btn-success">Send your comment to moderation</button>
-				</div>
-			<?php }?>
 		</div>
 	</div>
 </div>
