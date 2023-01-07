@@ -12,4 +12,7 @@
 		</div>
 		<img class="col-4" id="profile-picture" src="/pictures/profilePicture.png" alt="profile-picture">
 	</div>
+	<div class="row">
+		
+	</div>
 </div>
