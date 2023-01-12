@@ -22,5 +22,4 @@
 			</div>
 		</div>
 	<?php } ?>
-	<?= isset($_SESSION["username"]) ? '<a href="create-post" class="btn btn-primary">Create new post</a>' : "" ?>
 </div>

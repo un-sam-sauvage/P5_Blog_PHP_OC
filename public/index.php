@@ -11,6 +11,14 @@ $router->map('GET', '/', [
 	'controller' => 'HomeController',
 	'method' => 'index'
 ], 'home-index');
+$router->map("GET", "/admin-page", [
+	"controller" => "CommentController",
+	"method" => "getCommentsToValidate"
+], "admin-page");
+$router->map("POST", "/send-mail", [
+	"controller" => "HomeController",
+	"method" => "sendMail"
+], "sendMail");
 #endregion
 #region login and register
 $router->map('GET', '/login', [
@@ -80,11 +88,6 @@ $router->map("POST", "/ajax-comment", [
 	"controller" => "CommentController",
 	"method" => "ajaxComment",
 ], "ajax-comment");
-
-$router->map("GET", "/validate-comments", [
-	"controller" => "CommentController",
-	"method" => "getCommentsToValidate"
-], "get-comments-validate");
 #endregion
 $match = $router->match();
 

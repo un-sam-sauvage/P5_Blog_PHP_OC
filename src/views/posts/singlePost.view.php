@@ -43,7 +43,7 @@
 		?>
 	</p>
 	<p class="post-content" id="post-content"><?= $post["content"] ?></p>
-	<?php if($isAuthor) { ?>
+	<?php if($isAuthor || $_SESSION["isAdmin"] == 1) { ?>
 	<p class="btn btn-danger" id="delete-post">Delete post</p>
 	<p class="btn btn-primary" id="edit-post">Edit post</p>
 

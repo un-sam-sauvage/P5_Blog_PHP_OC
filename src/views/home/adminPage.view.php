@@ -1,4 +1,16 @@
 <style>
+	.container {
+		padding-top: 2%;
+		display: flex;
+		justify-content: space-evenly;
+	}
+</style>
+<div class="container">
+	<div id="actions">
+		<?= isset($_SESSION["username"]) ? '<a href="create-post" class="btn btn-primary">Create new post</a>' : "" ?>
+	</div>
+	<div id="comments">
+	<style>
 	.btns {
 		display: inline;
 	}
@@ -57,7 +69,10 @@
 		<button id="confirm-reject"class="btn btn-danger">Reject this comment</button>
 	</div>
 </div>
+</div>
+
 <script type="module">
+	//SCRIPT FOR COMMENTS ADMIN
 	import {fct_fetchData} from "/js/mod_ajax.js";
 
 	document.querySelectorAll(".validate").forEach(element => {
@@ -99,3 +114,5 @@
 		document.getElementById("wrapper-reject").classList.add("hidden");
 	})
 </script>
+</div>
+

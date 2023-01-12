@@ -51,7 +51,19 @@ $title = $title ?? 'Homepage';
 		.hidden {
 			display: none;
 		}
+		footer {
+			position: fixed;
+			bottom: 0;
+			height: 80px;
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background-color: lightgray;
+		}
 	</style>
+	<script src="https://kit.fontawesome.com/1b3c4452ae.js" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
@@ -70,9 +82,10 @@ $title = $title ?? 'Homepage';
 			msgSysteme.classList = [];
 			msgSysteme.classList.add("msg");
 			msgSysteme.classList.add(className);
-			msgSysteme.textContent = msg;
+			msgSysteme.innerHTML = msg;
 		}
 	</script>
 	<?= $bodyContent ?>
+	<?php if (isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"] == 1) require_once(__DIR__ . '/partials/footer.view.php') ?>;
 </body>
 </html>

@@ -28,11 +28,6 @@
 			</li>
 
 			<?php } ?>
-			<?php if(isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"] == 1){?>
-			<li class="nav-item active">
-				<a href="/validate-comments" class="nav-link">Validate new comments</a>
-			</li>
-			<?php } ?>
 		</ul>
 	</div>
 </nav>

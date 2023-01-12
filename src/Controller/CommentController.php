@@ -106,7 +106,7 @@ class CommentController extends BaseController {
 		if (isset($_SESSION["user_id"])) {
 			if ($userModel->isAdmin($_SESSION["user_id"])) {
 				$comments = $commentModel->getCommentsToValidate();
-				$this->render("comments/adminComment.view.php", array("title" => "Validate comments", "comments" => $comments));
+				$this->render("home/adminPage.view.php", array("title" => "Validate comments", "comments" => $comments));
 			} else {
 				$this->error("You don't have enough right to access this page");
 			}
